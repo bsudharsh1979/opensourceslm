@@ -155,10 +155,10 @@ body {
     position: relative;
 }
 
-/* Print: A4 landscape — keep dark editorial theme */
+/* Print: 16:9 landscape — matches on-screen design exactly */
 @media print {
     @page {
-        size: 297mm 210mm;
+        size: 297mm 167mm;
         margin: 0;
     }
 
@@ -208,20 +208,20 @@ body {
         display: none !important;
     }
 
-    /* Wrapper around all print slides — must be visible */
     .print-only-wrapper {
         display: block !important;
         position: static !important;
         background: #0a0a0b !important;
     }
 
+    /* Each print page = 16:9 box; inner section is 1920x1080 design, scaled to fit */
     .print-slide {
         page-break-after: always;
         break-after: page;
         page-break-inside: avoid;
         break-inside: avoid;
         width: 297mm !important;
-        height: 210mm !important;
+        height: 167mm !important;
         overflow: hidden !important;
         display: block !important;
         position: relative !important;
@@ -230,9 +230,12 @@ body {
     }
 
     .print-slide > section {
-        width: 100% !important;
-        height: 100% !important;
+        width: 1920px !important;
+        height: 1080px !important;
+        transform: scale(0.5847); /* 1122.5px (297mm @96dpi) / 1920px design width */
+        transform-origin: top left !important;
         background: #0a0a0b !important;
+        position: relative !important;
     }
 
     .print-slide:last-child {
@@ -240,19 +243,16 @@ body {
         break-after: auto;
     }
 
-    /* Disable reveal animations for print (text was invisible mid-fade) */
     .reveal > * {
         opacity: 1 !important;
         transform: none !important;
         animation: none !important;
     }
 
-    /* Drop grain texture for sharper print + smaller PDF */
     .grain::after {
         display: none !important;
     }
 
-    /* Hide the running ticker dot animation */
     .animate-pulse {
         animation: none !important;
     }

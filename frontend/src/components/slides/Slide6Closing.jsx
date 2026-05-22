@@ -1,202 +1,260 @@
 import SlideShell from "../SlideShell";
 import {
-    Lock,
-    Unlock,
-    Cpu,
-    Server,
-    Eye,
-    EyeOff,
-    Coins,
+    User,
+    Workflow,
+    ShieldCheck,
+    Bot,
+    Wrench,
+    Activity,
+    FileCheck,
+    ArrowDown,
     Zap,
+    Coins,
+    Lock,
+    Gauge,
 } from "lucide-react";
+
+const BENEFITS = [
+    {
+        Icon: Workflow,
+        title: "Cross-framework",
+        sub: "LangChain · LlamaIndex · CrewAI · custom — one toolkit",
+    },
+    {
+        Icon: ShieldCheck,
+        title: "Guardrails built-in",
+        sub: "Prompt-injection, jailbreak & tool-poison shields",
+    },
+    {
+        Icon: Bot,
+        title: "Managed agent registry",
+        sub: "Every agent versioned, scoped, and observable",
+    },
+    {
+        Icon: Gauge,
+        title: "Eval at scale",
+        sub: "Golden datasets · accuracy · latency · cost",
+    },
+    {
+        Icon: Coins,
+        title: "FinOps native",
+        sub: "Per-agent, per-tool, per-task cost tracking",
+    },
+    {
+        Icon: Lock,
+        title: "Audit-ready",
+        sub: "Every prompt, tool call & output logged",
+    },
+];
+
+const AGENTS = ["Planner", "Retriever", "Analyzer", "Reporter"];
 
 export default function Slide6Closing() {
     return (
-        <SlideShell number={6} eyebrow="The Big Picture">
-            <div className="h-full w-full grid grid-cols-12 gap-6 reveal">
+        <SlideShell number={6} eyebrow="NeMo Agent Toolkit">
+            <div className="h-full w-full grid grid-cols-12 gap-8 reveal">
+                {/* Header */}
                 <div className="col-span-12">
                     <h2 className="font-serif font-light text-4xl lg:text-5xl leading-[1.05] tracking-tight max-w-5xl">
-                        One picture. Two worlds.{" "}
+                        How NVIDIA NeMo turns agents into{" "}
                         <span className="italic text-[var(--amber)]">
-                            Pick yours.
-                        </span>
+                            safe, governed
+                        </span>{" "}
+                        digital workers.
                     </h2>
                 </div>
 
-                {/* Big infographic — Black-Box vs Open */}
-                <div className="col-span-12 grid grid-cols-2 gap-5">
-                    {/* BLACK BOX side */}
-                    <div className="relative border border-[var(--crimson)]/30 bg-[var(--ink-2)]/40 p-6 overflow-hidden">
-                        <span className="absolute -top-3 left-6 bg-[var(--ink)] px-3 font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--crimson)]">
-                            Black-Box AI
-                        </span>
+                {/* Architecture diagram — left 8 cols */}
+                <div className="col-span-8 flex flex-col">
+                    <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--amber)] mb-4">
+                        The architecture
+                    </p>
 
-                        <div className="flex items-baseline justify-between">
-                            <Lock
-                                className="w-8 h-8 text-[var(--crimson)]/80"
-                                strokeWidth={1.4}
+                    <div className="flex-1 flex flex-col items-center gap-2 relative">
+                        {/* Row 1: User Request */}
+                        <div className="flex items-center gap-2 px-4 py-2 border border-[var(--line)] bg-[var(--ink-2)]">
+                            <User
+                                className="w-3.5 h-3.5 text-[var(--cream-dim)]"
+                                strokeWidth={1.5}
                             />
-                            <span className="font-serif italic text-base text-[var(--muted)]">
-                                trust the vendor
+                            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--cream-dim)]">
+                                User Request
                             </span>
                         </div>
 
-                        <div className="mt-5 grid grid-cols-4 gap-2">
-                            {[
-                                { Icon: EyeOff, l: "Opaque" },
-                                { Icon: Server, l: "Their cloud" },
-                                { Icon: Coins, l: "$$$$" },
-                                { Icon: Zap, l: "Drift" },
-                            ].map((b) => (
-                                <div
-                                    key={b.l}
-                                    className="border border-[var(--line)]/60 bg-black/30 p-3 flex flex-col items-center gap-2"
-                                >
-                                    <b.Icon
-                                        className="w-4 h-4 text-[var(--crimson)]/70"
-                                        strokeWidth={1.5}
-                                    />
-                                    <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--cream-dim)]">
-                                        {b.l}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
 
-                        <div className="mt-6 space-y-2">
-                            {[
-                                "Can't audit weights",
-                                "Can't pin versions",
-                                "Can't run offline",
-                                "Can't avoid lock-in",
-                            ].map((t) => (
-                                <p
-                                    key={t}
-                                    className="font-serif text-sm text-[var(--cream-dim)] line-through decoration-[var(--crimson)]/40"
-                                >
-                                    {t}
-                                </p>
-                            ))}
-                        </div>
-
-                        <div className="mt-6 pt-4 border-t border-[var(--line)]">
-                            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--crimson)]">
-                                Outcome
-                            </p>
-                            <p className="mt-1 font-serif text-base text-[var(--cream-dim)]">
-                                Powerful. Expensive. Unaccountable.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* OPEN side */}
-                    <div className="relative border border-[var(--amber)]/50 bg-[var(--amber)]/[0.04] p-6 overflow-hidden">
-                        <span className="absolute -top-3 left-6 bg-[var(--ink)] px-3 font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--amber)]">
-                            Open · Auditable · Agentic
-                        </span>
-
-                        <div className="flex items-baseline justify-between">
-                            <Unlock
-                                className="w-8 h-8 text-[var(--amber)]"
-                                strokeWidth={1.4}
-                            />
-                            <span className="font-serif italic text-base text-[var(--amber)]">
-                                trust the evidence
+                        {/* Row 2: Orchestrator */}
+                        <div className="w-[420px] border border-[var(--amber)]/60 bg-[var(--amber)]/[0.05] px-4 py-2.5 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Workflow
+                                    className="w-4 h-4 text-[var(--amber)]"
+                                    strokeWidth={1.6}
+                                />
+                                <span className="font-serif text-sm text-[var(--cream)]">
+                                    NeMo Orchestrator
+                                </span>
+                            </div>
+                            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--amber)]">
+                                cross-framework
                             </span>
                         </div>
 
-                        <div className="mt-5 grid grid-cols-4 gap-2">
-                            {[
-                                { Icon: Eye, l: "Transparent" },
-                                { Icon: Cpu, l: "Your edge" },
-                                { Icon: Coins, l: "10× cheaper" },
-                                { Icon: Zap, l: "Pinned" },
-                            ].map((b) => (
-                                <div
-                                    key={b.l}
-                                    className="border border-[var(--amber)]/30 bg-[var(--ink)] p-3 flex flex-col items-center gap-2"
-                                >
-                                    <b.Icon
-                                        className="w-4 h-4 text-[var(--amber)]"
-                                        strokeWidth={1.5}
-                                    />
-                                    <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--cream)]">
-                                        {b.l}
-                                    </span>
-                                </div>
-                            ))}
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
+
+                        {/* Row 3: Guardrails */}
+                        <div className="w-[420px] border border-[var(--crimson)]/40 bg-[var(--crimson)]/[0.06] px-4 py-2.5 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <ShieldCheck
+                                    className="w-4 h-4 text-[var(--crimson)]/90"
+                                    strokeWidth={1.6}
+                                />
+                                <span className="font-serif text-sm text-[var(--cream)]">
+                                    Guardrails Layer
+                                </span>
+                            </div>
+                            <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--crimson)]/90">
+                                injection · jailbreak · pii · poison
+                            </span>
                         </div>
 
-                        <div className="mt-6 space-y-2">
-                            {[
-                                "Audit every weight",
-                                "Pin every version",
-                                "Run on-prem · on-device",
-                                "Switch vendor anytime",
-                            ].map((t) => (
-                                <p
-                                    key={t}
-                                    className="font-serif text-sm text-[var(--cream)]"
-                                >
-                                    <span className="text-[var(--amber)]">
-                                        ✓
-                                    </span>{" "}
-                                    {t}
-                                </p>
-                            ))}
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
+
+                        {/* Row 4: 4 managed agents */}
+                        <div className="w-[520px] relative">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--ink)] px-2 font-mono text-[9px] tracking-[0.25em] uppercase text-[var(--amber)]">
+                                managed agent registry
+                            </div>
+                            <div className="grid grid-cols-4 gap-2 border border-[var(--line)] bg-[var(--ink-2)]/60 p-3">
+                                {AGENTS.map((a) => (
+                                    <div
+                                        key={a}
+                                        className="border border-[var(--amber)]/30 bg-[var(--ink)] py-2 flex flex-col items-center gap-1"
+                                        data-testid={`nemo-agent-${a.toLowerCase()}`}
+                                    >
+                                        <Bot
+                                            className="w-3.5 h-3.5 text-[var(--amber)]"
+                                            strokeWidth={1.5}
+                                        />
+                                        <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--cream)]">
+                                            {a}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
-                        <div className="mt-6 pt-4 border-t border-[var(--amber)]/30">
-                            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--amber)]">
-                                Outcome
-                            </p>
-                            <p className="mt-1 font-serif text-base text-[var(--cream)]">
-                                Powerful.{" "}
-                                <span className="italic">Affordable.</span>{" "}
-                                Accountable.
-                            </p>
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
+
+                        {/* Row 5: Tool & MCP layer */}
+                        <div className="w-[420px] border border-[var(--line)] bg-[var(--ink-2)] px-4 py-2.5 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Wrench
+                                    className="w-4 h-4 text-[var(--amber)]"
+                                    strokeWidth={1.6}
+                                />
+                                <span className="font-serif text-sm text-[var(--cream)]">
+                                    Tool Registry · MCP
+                                </span>
+                            </div>
+                            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--cream-dim)]">
+                                least-privilege
+                            </span>
+                        </div>
+
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
+
+                        {/* Row 6: Eval & Monitoring */}
+                        <div className="w-[420px] border border-[var(--line)] bg-[var(--ink-2)] px-4 py-2.5 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Activity
+                                    className="w-4 h-4 text-[var(--amber)]"
+                                    strokeWidth={1.6}
+                                />
+                                <span className="font-serif text-sm text-[var(--cream)]">
+                                    Eval & Monitoring
+                                </span>
+                            </div>
+                            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--cream-dim)]">
+                                cost · latency · drift
+                            </span>
+                        </div>
+
+                        <ArrowDown className="w-3 h-3 text-[var(--amber)]" />
+
+                        {/* Row 7: Audited Output */}
+                        <div className="flex items-center gap-2 px-4 py-2 border border-[var(--amber)] bg-[var(--amber)]/[0.1]">
+                            <FileCheck
+                                className="w-3.5 h-3.5 text-[var(--amber)]"
+                                strokeWidth={1.6}
+                            />
+                            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--amber)]">
+                                Audited Output
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom: stat strip + closing */}
-                <div className="col-span-12 grid grid-cols-4 gap-4 mt-2">
-                    {[
-                        { big: "10×", small: "lower inference cost" },
-                        { big: "100%", small: "data sovereignty" },
-                        { big: "0", small: "vendor lock-in" },
-                        { big: "∞", small: "audit replay" },
-                    ].map((s, i) => (
-                        <div
-                            key={i}
-                            className="border-t border-[var(--amber)]/40 pt-3"
-                            data-testid={`bigpic-stat-${i + 1}`}
-                        >
-                            <p className="font-serif text-4xl text-[var(--amber)] tabular-nums leading-none">
-                                {s.big}
-                            </p>
-                            <p className="mt-2 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--cream-dim)]">
-                                {s.small}
-                            </p>
+                {/* Right column — benefits */}
+                <div className="col-span-4 flex flex-col">
+                    <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--amber)] mb-4">
+                        Why it's effective
+                    </p>
+
+                    <div className="grid grid-cols-1 gap-2 flex-1">
+                        {BENEFITS.map((b, i) => (
+                            <div
+                                key={b.title}
+                                className="border border-[var(--line)] bg-[var(--ink-2)]/40 px-3 py-2 flex gap-3 hover:border-[var(--amber)]/60 transition-colors"
+                                data-testid={`benefit-${i + 1}`}
+                            >
+                                <b.Icon
+                                    className="w-4 h-4 text-[var(--amber)] flex-shrink-0 mt-0.5"
+                                    strokeWidth={1.5}
+                                />
+                                <div className="min-w-0">
+                                    <p className="font-serif text-sm text-[var(--cream)] leading-tight">
+                                        {b.title}
+                                    </p>
+                                    <p className="text-[10px] text-[var(--cream-dim)] leading-snug mt-0.5">
+                                        {b.sub}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-3 border-t border-[var(--amber)]/40 pt-3">
+                        <div className="flex items-center gap-2">
+                            <Zap className="w-3.5 h-3.5 text-[var(--amber)]" />
+                            <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-[var(--amber)]">
+                                The result
+                            </span>
                         </div>
-                    ))}
+                        <p className="mt-1 font-serif text-sm text-[var(--cream)] leading-snug">
+                            Agents that{" "}
+                            <span className="italic text-[var(--amber)]">
+                                perceive, think, act, and learn
+                            </span>{" "}
+                            — without going rogue.
+                        </p>
+                    </div>
                 </div>
 
-                <div className="col-span-12 flex items-end justify-between mt-2">
-                    <p className="font-serif text-2xl text-[var(--cream)] max-w-3xl leading-snug">
+                {/* Closing footer */}
+                <div className="col-span-12 flex items-center justify-between border-t border-[var(--line)] pt-3">
+                    <p className="font-serif text-base text-[var(--cream)]">
                         From{" "}
                         <span className="italic text-[var(--muted)] line-through decoration-[var(--crimson)]/60">
                             black-box guesswork
                         </span>{" "}
                         to{" "}
                         <span className="italic text-[var(--amber)]">
-                            open, auditable intelligence
+                            open, auditable, agentic intelligence.
                         </span>
-                        . That's the shift.
                     </p>
                     <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--amber)] text-right">
-                        Thank you
-                        <br />
+                        Thank you ·{" "}
                         <span className="text-[var(--cream-dim)]">
                             Questions welcome
                         </span>
