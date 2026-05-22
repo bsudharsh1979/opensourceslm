@@ -155,29 +155,105 @@ body {
     position: relative;
 }
 
-/* Print: A4 landscape */
+/* Print: A4 landscape — keep dark editorial theme */
 @media print {
     @page {
-        size: A4 landscape;
+        size: 297mm 210mm;
         margin: 0;
     }
-    body {
-        overflow: visible !important;
-        background: white !important;
+
+    html {
+        background: #0a0a0b !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
     }
+
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #0a0a0b !important;
+        color: #f5f1ea !important;
+        overflow: visible !important;
+        height: auto !important;
+        width: 297mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    #root,
+    .App,
+    [data-testid="deck-root"] {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        width: 297mm !important;
+        background: #0a0a0b !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
     .no-print {
         display: none !important;
     }
+
+    .slide-canvas {
+        display: none !important;
+    }
+
+    /* Wrapper around all print slides — must be visible */
+    .print-only-wrapper {
+        display: block !important;
+        position: static !important;
+        background: #0a0a0b !important;
+    }
+
     .print-slide {
         page-break-after: always;
-        width: 297mm;
-        height: 210mm;
-        overflow: hidden;
+        break-after: page;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        width: 297mm !important;
+        height: 210mm !important;
+        overflow: hidden !important;
         display: block !important;
         position: relative !important;
-        transform: none !important;
+        background: #0a0a0b !important;
+        color: #f5f1ea !important;
     }
+
+    .print-slide > section {
+        width: 100% !important;
+        height: 100% !important;
+        background: #0a0a0b !important;
+    }
+
     .print-slide:last-child {
         page-break-after: auto;
+        break-after: auto;
+    }
+
+    /* Disable reveal animations for print (text was invisible mid-fade) */
+    .reveal > * {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    /* Drop grain texture for sharper print + smaller PDF */
+    .grain::after {
+        display: none !important;
+    }
+
+    /* Hide the running ticker dot animation */
+    .animate-pulse {
+        animation: none !important;
     }
 }

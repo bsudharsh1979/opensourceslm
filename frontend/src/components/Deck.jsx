@@ -46,7 +46,16 @@ export default function Deck() {
         return () => window.removeEventListener("keydown", onKey);
     }, [go, jump, total]);
 
-    const handlePrint = () => window.print();
+    const handlePrint = () => {
+        // Download the pre-rendered PDF (guaranteed dark-theme, paginated)
+        const a = document.createElement("a");
+        a.href = "/presentation.pdf";
+        a.download = "AI-from-blackbox-to-auditable.pdf";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+    const handleBrowserPrint = () => window.print();
     const handleFullscreen = () => {
         if (!document.fullscreenElement)
             document.documentElement.requestFullscreen?.();
@@ -64,7 +73,8 @@ export default function Deck() {
                 <Active />
             </div>
 
-            <div className="hidden print:block">
+            {/* Print-only: render all slides */}
+            <div className="hidden print:block print-only-wrapper">
                 {SLIDES.map(({ Component, id }) => (
                     <div className="print-slide" key={id}>
                         <Component />
@@ -94,11 +104,19 @@ export default function Deck() {
                     <button
                         onClick={handlePrint}
                         className="flex items-center gap-2 px-3 py-2 rounded-md border border-[var(--line)] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors font-mono text-[10px] tracking-[0.2em] uppercase"
-                        title="Export to PDF"
+                        title="Download PDF"
                         data-testid="print-btn"
                     >
                         <Printer className="w-3.5 h-3.5" />
-                        Export PDF
+                        Download PDF
+                    </button>
+                    <button
+                        onClick={handleBrowserPrint}
+                        className="px-2 py-2 rounded-md border border-[var(--line)] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors font-mono text-[10px] tracking-[0.2em] uppercase"
+                        title="Browser print (live)"
+                        data-testid="browser-print-btn"
+                    >
+                        Print
                     </button>
                 </div>
             </header>
