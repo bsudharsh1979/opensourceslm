@@ -8,12 +8,12 @@ import Slide5OperatingModel from "./slides/Slide5OperatingModel";
 import Slide6Closing from "./slides/Slide6Closing";
 
 const SLIDES = [
-    { id: 1, label: "The Shift", Component: Slide1Title },
-    { id: 2, label: "The API Uprising", Component: Slide2ApiUprising },
-    { id: 3, label: "The Token Journey", Component: Slide3TokenJourney },
-    { id: 4, label: "Model Portfolio", Component: Slide4ModelPortfolio },
-    { id: 5, label: "Operating Model", Component: Slide5OperatingModel },
-    { id: 6, label: "AI Assurance", Component: Slide6Closing },
+    { id: 1, label: "Agenda", Component: Slide1Title },
+    { id: 2, label: "Black-Box Risk", Component: Slide2ApiUprising },
+    { id: 3, label: "Open-Source Rises", Component: Slide3TokenJourney },
+    { id: 4, label: "The SLM Era", Component: Slide4ModelPortfolio },
+    { id: 5, label: "Mitigation & Future", Component: Slide5OperatingModel },
+    { id: 6, label: "The Big Picture", Component: Slide6Closing },
 ];
 
 export default function Deck() {
@@ -60,12 +60,10 @@ export default function Deck() {
             className="relative w-full h-screen bg-[var(--ink)] text-[var(--cream)] overflow-hidden"
             data-testid="deck-root"
         >
-            {/* Screen view: only current slide */}
             <div className="slide-canvas no-print" data-testid="slide-canvas">
                 <Active />
             </div>
 
-            {/* Print-only: render all slides */}
             <div className="hidden print:block">
                 {SLIDES.map(({ Component, id }) => (
                     <div className="print-slide" key={id}>
@@ -74,7 +72,6 @@ export default function Deck() {
                 ))}
             </div>
 
-            {/* Top bar */}
             <header
                 className="no-print fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-5"
                 data-testid="deck-header"
@@ -106,7 +103,6 @@ export default function Deck() {
                 </div>
             </header>
 
-            {/* Bottom bar */}
             <footer
                 className="no-print fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-5"
                 data-testid="deck-footer"
