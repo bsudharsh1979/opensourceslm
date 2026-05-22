@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --ink: #0a0a0b;
+    --ink-2: #131316;
+    --ink-3: #1c1c20;
+    --line: #2a2a30;
+    --cream: #f5f1ea;
+    --cream-dim: #c9c4ba;
+    --muted: #87827a;
+    --amber: #f5a524;
+    --amber-deep: #d97706;
+    --teal: #2dd4bf;
+    --crimson: #ef4444;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+}
+
+.font-serif {
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+}
+
+.font-mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* shadcn base tokens — dark editorial */
+@layer base {
+    :root {
+        --background: 240 6% 4%;
+        --foreground: 38 33% 94%;
+        --card: 240 6% 7%;
+        --card-foreground: 38 33% 94%;
+        --popover: 240 6% 7%;
+        --popover-foreground: 38 33% 94%;
+        --primary: 38 92% 55%;
+        --primary-foreground: 240 6% 4%;
+        --secondary: 240 5% 12%;
+        --secondary-foreground: 38 33% 94%;
+        --muted: 240 5% 12%;
+        --muted-foreground: 38 8% 65%;
+        --accent: 38 92% 55%;
+        --accent-foreground: 240 6% 4%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5% 18%;
+        --input: 240 5% 18%;
+        --ring: 38 92% 55%;
+        --radius: 0.5rem;
+    }
+}
+
+/* Editorial details */
+.grain {
+    position: relative;
+}
+.grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.88  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+.hairline {
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        var(--line) 20%,
+        var(--line) 80%,
+        transparent
+    );
+    height: 1px;
+}
+
+.dot-grid {
+    background-image: radial-gradient(
+        rgba(245, 165, 36, 0.08) 1px,
+        transparent 1px
+    );
+    background-size: 22px 22px;
+}
+
+/* Number / stat ticker */
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal > * {
+    opacity: 0;
+    animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.reveal > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.reveal > *:nth-child(2) {
+    animation-delay: 0.18s;
+}
+.reveal > *:nth-child(3) {
+    animation-delay: 0.31s;
+}
+.reveal > *:nth-child(4) {
+    animation-delay: 0.44s;
+}
+.reveal > *:nth-child(5) {
+    animation-delay: 0.57s;
+}
+.reveal > *:nth-child(6) {
+    animation-delay: 0.7s;
+}
+.reveal > *:nth-child(7) {
+    animation-delay: 0.83s;
+}
+.reveal > *:nth-child(8) {
+    animation-delay: 0.96s;
+}
+
+/* Custom selection */
+::selection {
+    background: var(--amber);
+    color: var(--ink);
+}
+
+/* Scroll-free slide canvas */
+.slide-canvas {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Print: A4 landscape */
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+    body {
+        overflow: visible !important;
+        background: white !important;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .print-slide {
+        page-break-after: always;
+        width: 297mm;
+        height: 210mm;
+        overflow: hidden;
+        display: block !important;
+        position: relative !important;
+        transform: none !important;
+    }
+    .print-slide:last-child {
+        page-break-after: auto;
+    }
+}
